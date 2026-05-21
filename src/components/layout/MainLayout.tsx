@@ -13,7 +13,7 @@ export const MainLayout = ({ children, currentView, setCurrentView }: MainLayout
     <div className="flex min-h-screen bg-gray-900 text-white">
       <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden w-full min-h-screen pl-20">
         <Header />
         
         <main className="flex-1 overflow-y-auto p-6 bg-gray-900">
