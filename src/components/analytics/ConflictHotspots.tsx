@@ -81,12 +81,12 @@ export const ConflictHotspots = ({ hotspots }: ConflictHotspotsProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 divide-x divide-gray-700">
-        <div className="p-4 bg-gray-900/50">
+      <div className="grid grid-cols-2 divide-x divide-gray-700 h-[600px]">
+        <div className="p-4 bg-gray-900/50 flex flex-col h-full">
           <div className="mb-3 px-2">
             <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Risk Roster</h3>
           </div>
-          <div className="space-y-2 max-h-96 overflow-y-auto pr-2">
+          <div className="flex-1 overflow-y-auto min-h-0 px-2 space-y-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
             {filteredFiles.map((file) => {
               const isSelected = selectedFile.id === file.id;
               const isCritical = file.riskScore > 80;

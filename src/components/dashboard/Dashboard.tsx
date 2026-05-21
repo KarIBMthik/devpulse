@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RiskOverviewCard } from './RiskOverviewCard';
 import { ConflictHotspots } from '../analytics/ConflictHotspots';
+import { ActionPanel } from '../agent/ActionPanel';
 
 export const Dashboard = () => {
   const [repoUrl, setRepoUrl] = useState('');
@@ -65,6 +66,10 @@ export const Dashboard = () => {
 
           <div className="mt-6">
             <ConflictHotspots hotspots={scanData.hotspots} />
+          </div>
+
+          <div className="mt-6">
+            <ActionPanel actions={scanData?.agentActions} />
           </div>
         </>
       ) : (
