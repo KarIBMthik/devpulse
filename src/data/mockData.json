@@ -1,0 +1,88 @@
+{
+  "velocityData": [
+    {
+      "sprintName": "Sprint 10",
+      "plannedPoints": 85,
+      "completedPoints": 82,
+      "teamHealthScore": 88
+    },
+    {
+      "sprintName": "Sprint 11",
+      "plannedPoints": 90,
+      "completedPoints": 87,
+      "teamHealthScore": 86
+    },
+    {
+      "sprintName": "Sprint 12",
+      "plannedPoints": 88,
+      "completedPoints": 85,
+      "teamHealthScore": 84
+    },
+    {
+      "sprintName": "Sprint 13",
+      "plannedPoints": 92,
+      "completedPoints": 89,
+      "teamHealthScore": 82
+    },
+    {
+      "sprintName": "Sprint 14",
+      "plannedPoints": 95,
+      "completedPoints": 58,
+      "teamHealthScore": 62
+    }
+  ],
+  "activeRisks": [
+    {
+      "id": "risk-001",
+      "title": "High Risk of Merge Conflict",
+      "severity": "critical",
+      "probability": 95,
+      "impact": "high",
+      "affectedFile": "Dashboard.tsx",
+      "description": "3 developers (Sarah Chen, Mike Rodriguez, Priya Sharma) are simultaneously modifying the same complex Dashboard component. Current implementation has 450+ lines in a single file with tightly coupled state management.",
+      "detectedAt": "2026-05-18T14:23:00Z",
+      "estimatedImpact": "8 hours of conflict resolution, potential sprint delay",
+      "developers": ["Sarah Chen", "Mike Rodriguez", "Priya Sharma"],
+      "suggestedAction": "Immediate component decomposition required"
+    },
+    {
+      "id": "risk-002",
+      "title": "Performance Degradation in Data Grid",
+      "severity": "high",
+      "probability": 78,
+      "impact": "medium",
+      "affectedFile": "DataGrid.tsx",
+      "description": "Rendering 10,000+ rows without virtualization causing browser lag. User complaints increasing in production environment.",
+      "detectedAt": "2026-05-17T09:15:00Z",
+      "estimatedImpact": "Poor user experience, potential customer escalations",
+      "developers": ["Alex Thompson"],
+      "suggestedAction": "Implement react-window or react-virtualized"
+    },
+    {
+      "id": "risk-003",
+      "title": "Deprecated API Usage",
+      "severity": "medium",
+      "probability": 65,
+      "impact": "medium",
+      "affectedFile": "AuthService.ts",
+      "description": "Using legacy authentication endpoint scheduled for deprecation in Q3 2026. Migration path available but not yet implemented.",
+      "detectedAt": "2026-05-16T11:45:00Z",
+      "estimatedImpact": "Service disruption if not migrated before Q3",
+      "developers": ["Jordan Lee"],
+      "suggestedAction": "Schedule migration to OAuth 2.0 flow"
+    }
+  ],
+  "agentProposals": [
+    {
+      "id": "refactor-dashboard-001",
+      "title": "Decompose Monolithic Dashboard Component",
+      "riskId": "risk-merge-conflict-01",
+      "filePath": "src/components/Dashboard.tsx",
+      "businessImpact": "Unblocks 3 developers. Eliminates persistent merge conflicts. Saves 12 estimated hours of refactoring.",
+      "priority": "Critical",
+      "status": "Pending",
+      "currentCodeSnippet": "export default function Dashboard() {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  // 50 lines of messy, tangled fetch logic here\n  useEffect(() => {\n    fetchData().then(res => setData(res));\n  }, []);\n\n  return (\n    <div className='flex flex-col'>\n      {/* 200 lines of deeply nested inline UI, mixing charts and auth logic */}\n      {userRole === 'admin' && <AdminPanel data={data} />}\n      <div className='chart-container'>\n         {/* ... massive chart code ... */}\n      </div>\n    </div>\n  );\n}",
+      "proposedCodeSnippet": "// AI Refactor: Decoupled Logic & Extracted Components\nimport { useDashboardData } from '../hooks/useDashboardData';\nimport { AdminPanel, MetricCharts } from './widgets';\n\nexport default function Dashboard() {\n  // State and fetching extracted to a custom hook\n  const { data, loading, userRole } = useDashboardData();\n\n  if (loading) return <LoadingSpinner />;\n\n  return (\n    <DashboardGrid>\n      {userRole === 'admin' && <AdminPanel data={data.adminMetrics} />}\n      <MetricCharts data={data.metrics} />\n    </DashboardGrid>\n  );\n}"
+    }
+  ]
+}
