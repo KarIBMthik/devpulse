@@ -13,7 +13,7 @@ export const Sidebar = ({ currentView, setCurrentView }: SidebarProps) => {
   const handleMouseEnter = () => {
     const timeout = setTimeout(() => {
       setIsExpanded(true);
-    }, 500);
+    }, 300);
     setHoverTimeout(timeout);
   };
 
